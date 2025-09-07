@@ -1,4 +1,4 @@
-package postgres
+package persistence
 
 import (
 	"context"
@@ -9,5 +9,5 @@ import (
 type ReservationRepo interface {
 	GetReservation(ctx context.Context, id uuid.UUID) (*domain.Reservation, error)
     CreateReservation(ctx context.Context, warehouseID uuid.UUID, itemID uuid.UUID, qty int) (*domain.Reservation, error)
-    UpdateReservation(ctx context.Context, id uuid.UUID) error
+    UpdateReservation(ctx context.Context, id uuid.UUID, status domain.ReservationStatus) error
 }

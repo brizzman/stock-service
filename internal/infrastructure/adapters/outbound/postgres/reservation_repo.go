@@ -3,7 +3,7 @@ package postgres
 import (
 	"context"
 	"stock-service/internal/domain"
-	"stock-service/internal/application/ports/outbound/postgres"
+	"stock-service/internal/application/ports/outbound/persistence"
 
 	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5/pgxpool"
@@ -14,7 +14,7 @@ type reservationRepo struct {
 }
 
 // NewReservationRepo returns a new ReservationRepo implementation
-func NewReservationRepo(db *pgxpool.Pool) postgres.ReservationRepo {
+func NewReservationRepo(db *pgxpool.Pool) persistence.ReservationRepo {
 	return &reservationRepo{db: db}
 }
 
@@ -63,12 +63,12 @@ func (r *reservationRepo) CreateReservation(ctx context.Context, warehouseID uui
 }
 
 // UpdateReservation updates reservation status
-func (r *reservationRepo) UpdateReservation(ctx context.Context, id uuid.UUID) error {
+func (r *reservationRepo) UpdateReservation(ctx context.Context, id uuid.UUID, status domain.ReservationStatus) error {
 	const query = `
 		UPDATE reservations
 		SET status = $2
 		WHERE id = $1
 	`
-	_, err := r.db.Exec(ctx, query, id, domain.ReservationCommitted)
+	_, err := r.db.Exec(ctx, query, id, status)
 	return err
 }
