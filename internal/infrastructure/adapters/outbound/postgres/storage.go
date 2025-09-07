@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"stock-service/internal/infrastructure/logger"
 	"time"
-	"stock-service/internal/ports/outbound/postgres"
+	"stock-service/internal/application/ports/outbound/postgres"
 	"github.com/jackc/pgx/v5/pgxpool"
 	"go.uber.org/zap"
 )

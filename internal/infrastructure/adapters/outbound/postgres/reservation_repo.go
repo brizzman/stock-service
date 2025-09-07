@@ -3,7 +3,7 @@ package postgres
 import (
 	"context"
 	"stock-service/internal/domain"
-	"stock-service/internal/ports/outbound/postgres"
+	"stock-service/internal/application/ports/outbound/postgres"
 
 	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5/pgxpool"
